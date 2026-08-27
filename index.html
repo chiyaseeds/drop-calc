@@ -156,7 +156,6 @@
       if (qty[key] > 0) {
         let subtotal = qty[key] * PRICES[key];
         total += subtotal;
-        // Output format: 6🍪 × 10K = **__60K__**
         lines.push(`${qty[key]}${EMOJIS[key]} × ${PRICES[key]}K = **__${subtotal}K__**`);
       }
     }
@@ -168,7 +167,9 @@
 
     let result = lines.join('\n');
     result += `\n\ntotal: **__${total}K__**`;
-    result += `\n\`wsend  ${total * 1000}${user ? ' ' + user : ''}\``;
+    // Change this line:
+result += `\n\`wsend ${total * 1000} ${user || '@'}\``;
+
 
     document.getElementById('output').innerText = result;
   }
