@@ -197,7 +197,14 @@
     const text = document.getElementById('output').innerText;
     if (text && text !== 'Enter quantities...') {
       navigator.clipboard.writeText(text);
-      alert('Copied to clipboard!');
+      
+      const btn = document.querySelector('.btn-copy');
+      const originalText = btn.innerText;
+      btn.innerText = 'Copied!';
+      
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 1500);
     }
   }
 
