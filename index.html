@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- THIS META TAG FIXES THE MOBILE ZOOM ISSUE -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drop Price Calculator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #1e1f29;
+      color: #f8f8f2;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 16px;
+      margin: 0;
+      min-height: 100vh;
+    }
+    .container {
+      background-color: #282a36;
+      padding: 20px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 420px; /* Expands nicely on mobile */
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    h2 { margin-top: 0; color: #50fa7b; text-align: center; }
+    .item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      gap: 10px;
+    }
+    label { flex: 1; font-weight: 500; font-size: 15px; }
+    input {
+      width: 80px;
+      padding: 8px;
+      border: 1px solid #44475a;
+      border-radius: 6px;
+      background: #6272a4;
+      color: #fff;
+      text-align: center;
+      font-size: 16px; /* Prevents auto-zoom on iOS */
+    }
+    .user-input {
+      width: 100%;
+      margin-top: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .user-input input {
+      width: 100%;
+      text-align: left;
+    }
+    .output-box {
+      margin-top: 20px;
+      background: #181920;
+      padding: 12px;
+      border-radius: 8px;
+      font-family: monospace;
+      white-space: pre-wrap;
+      border: 1px solid #44475a;
+      word-break: break-word;
+    }
+    button {
+      width: 100%;
+      margin-top: 12px;
+      padding: 12px;
+      background-color: #bd93f9;
+      border: none;
+      border-radius: 6px;
+      color: #282a36;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover { background-color: #ff79c6; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Drop Calculator</h2>
+  
+  <div class="item-row">
+    <label>🍪 Cookies (10k):</label>
+    <input type="number" id="cookie" placeholder="0" min="0" oninput="calculate()">
+  </div>
+  <div class="item-row">
+    <label>⭐ Star Gems (15k):</label>
+    <input type="number" id="star" placeholder="0" min="0" oninput="calculate()">
+  </div>
+  <div class="item-row">
+    <label>🧊 Flootboxes (20k):</label>
+    <input type="number" id="floot" placeholder="0" min="0" oninput="calculate()">
+  </div>
+  <div class="item-row">
+    <label>🔮 900+ Shards (25k):</label>
+    <input type="number" id="shard" placeholder="0" min="0" oninput="calculate()">
+  </div>
+
+
+  <div class="user-input">
+    <label>User Tag (Optional):</label>
+    <input type="text" id="username" placeholder="username" oninput="calculate()">
+  </div>
+
+  <div class="output-box" id="output">Enter quantities...</div>
+  <button onclick="copyText()">Copy Discord Format</button>
+</div>
+
+<script>
+  const EMOJIS = {
+    cookie: '🍪',
+    star: '⭐',
+    floot: '🧊',
+    shard: ':o_ws:'
+  };
+
+  const PRICES = {
+    cookie: 10,
+    star: 15,
+    floot: 20,
+    shard: 25
+  };
+
+  function calculate() {
+    const qty = {
+      cookie: parseInt(document.getElementById('cookie').value) || 0,
+      star: parseInt(document.getElementById('star').value) || 0,
+      floot: parseInt(document.getElementById('floot').value) || 0,
+      shard: parseInt(document.getElementById('shard').value) || 0
+    };
+
+    let user = document.getElementById('username').value.trim();
+    if (user && !user.startsWith('@')) {
+      user = '@' + user;
+    }
+
+    let lines = [];
+    let total = 0;
+
+    for (let key in qty) {
+      if (qty[key] > 0) {
+        let subtotal = qty[key] * PRICES[key];
+        total += subtotal;
+        lines.push(`${qty[key]} ${EMOJIS[key]} × ${PRICES[key]}K = __${subtotal}K__`);
+      }
+    }
+
+    if (lines.length === 0) {
+      document.getElementById('output').innerText = 'Enter quantities...';
+      return;
+    }
+
+    let result = lines.join('\n');
+    result += `\n\ntotal: __${total}K__`;
+    result += `\n\`wsend ${total * 1000}${user ? ' ' + user : ''}\``;
+
+    document.getElementById('output').innerText = result;
+  }
+
+  function copyText() {
+    const text = document.getElementById('output').innerText;
+    if (text && text !== 'Enter quantities...') {
+      navigator.clipboard.writeText(text);
+      alert('Copied to clipboard!');
+    }
+  }
+</script>
+
+</body>
+</html>
