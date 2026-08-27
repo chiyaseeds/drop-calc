@@ -9,6 +9,13 @@
     * {
       box-sizing: border-box;
     }
+    .label-icon {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-right: 6px;
+  }
+
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #1e1f29;
@@ -96,15 +103,14 @@
     <label>⭐ Star Gems (15k):</label>
     <input type="number" id="star" placeholder="0" min="0" oninput="calculate()">
   </div>
-  <div class="item-row">
-    <label>🧊 Flootboxes (20k):</label>
-    <input type="number" id="floot" placeholder="0" min="0" oninput="calculate()">
-  </div>
-  <div class="item-row">
-    <label>🔮 900+ Shards (25k):</label>
-    <input type="number" id="shard" placeholder="0" min="0" oninput="calculate()">
-  </div>
-
+<div class="item-row">
+  <label><img src="https://static.wikia.nocookie.net/owobot/images/5/52/Fabled_Lootbox.gif/revision/latest?cb=20201217115737" class="label-icon"> Flootboxes (20k):</label>
+  <input type="number" id="floot" placeholder="0" min="0" oninput="calculate()">
+</div>
+<div class="item-row">
+  <label><img src="https://static.wikia.nocookie.net/owobot/images/8/84/Shards.png/revision/latest?cb=20200102064826" class="label-icon"> 900+ Shards (25k):</label>
+  <input type="number" id="shard" placeholder="0" min="0" oninput="calculate()">
+</div>
 
   <div class="user-input">
     <label>User Tag (Optional):</label>
@@ -119,7 +125,7 @@
   const EMOJIS = {
     cookie: '🍪',
     star: '⭐',
-    floot: '🧊',
+    floot: ':o_lb_f:',
     shard: ':o_ws:'
   };
 
