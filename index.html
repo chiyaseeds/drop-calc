@@ -2,20 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- THIS META TAG FIXES THE MOBILE ZOOM ISSUE -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>Drop Price Calculator</title>
   <style>
     * {
       box-sizing: border-box;
     }
     .label-icon {
-    width: 20px;
-    height: 20px;
-    vertical-align: middle;
-    margin-right: 6px;
-  }
-
+      width: 20px;
+      height: 20px;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #1e1f29;
@@ -32,7 +33,7 @@
       padding: 20px;
       border-radius: 12px;
       width: 100%;
-      max-width: 420px; /* Expands nicely on mobile */
+      max-width: 420px;
       box-shadow: 0 8px 24px rgba(0,0,0,0.4);
     }
     h2 { margin-top: 0; color: #50fa7b; text-align: center; }
@@ -52,7 +53,7 @@
       background: #6272a4;
       color: #fff;
       text-align: center;
-      font-size: 16px; /* Prevents auto-zoom on iOS */
+      font-size: 16px;
     }
     .user-input {
       width: 100%;
@@ -75,19 +76,35 @@
       border: 1px solid #44475a;
       word-break: break-word;
     }
-    button {
-      width: 100%;
+    .button-group {
+      display: flex;
+      gap: 8px;
       margin-top: 12px;
+    }
+    .btn-copy {
+      flex: 3;
       padding: 12px;
       background-color: #bd93f9;
       border: none;
       border-radius: 6px;
       color: #282a36;
       font-weight: bold;
-      font-size: 16px;
+      font-size: 15px;
       cursor: pointer;
     }
-    button:hover { background-color: #ff79c6; }
+    .btn-copy:hover { background-color: #ff79c6; }
+    .btn-clear {
+      flex: 1;
+      padding: 12px 8px;
+      background-color: #ff5555;
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .btn-clear:hover { background-color: #ff6e6e; }
   </style>
 </head>
 <body>
@@ -103,14 +120,14 @@
     <label>⭐ Star Gems (15k):</label>
     <input type="number" id="star" placeholder="0" min="0" oninput="calculate()">
   </div>
-<div class="item-row">
-  <label><img src="floot.png" class="label-icon"> Flootboxes (20k):</label>
-  <input type="number" id="floot" placeholder="0" min="0" oninput="calculate()">
-</div>
-<div class="item-row">
-  <label><img src="shard.png" class="label-icon"> 900+ Shards (25k):</label>
-  <input type="number" id="shard" placeholder="0" min="0" oninput="calculate()">
-</div>
+  <div class="item-row">
+    <label><img src="floot.png" class="label-icon"> Flootboxes (20k):</label>
+    <input type="number" id="floot" placeholder="0" min="0" oninput="calculate()">
+  </div>
+  <div class="item-row">
+    <label><img src="shard.png" class="label-icon"> 900+ Shards (25k):</label>
+    <input type="number" id="shard" placeholder="0" min="0" oninput="calculate()">
+  </div>
 
   <div class="user-input">
     <label>User Tag (Optional):</label>
@@ -118,7 +135,11 @@
   </div>
 
   <div class="output-box" id="output">Enter quantities...</div>
-  <button onclick="copyText()">Copy Discord Format</button>
+  
+  <div class="button-group">
+    <button class="btn-copy" onclick="copyText()">Copy Discord Format</button>
+    <button class="btn-clear" onclick="clearAll()">Clear</button>
+  </div>
 </div>
 
 <script>
@@ -167,9 +188,7 @@
 
     let result = lines.join('\n');
     result += `\n\ntotal: **__${total}K__**`;
-    // Change this line:
-result += `\n\`wsend ${total * 1000} ${user || '@'}\``;
-
+    result += `\n\`wsend  ${total * 1000} ${user || '@'}\``;
 
     document.getElementById('output').innerText = result;
   }
@@ -181,7 +200,16 @@ result += `\n\`wsend ${total * 1000} ${user || '@'}\``;
       alert('Copied to clipboard!');
     }
   }
+
+  function clearAll() {
+    document.getElementById('cookie').value = '';
+    document.getElementById('star').value = '';
+    document.getElementById('floot').value = '';
+    document.getElementById('shard').value = '';
+    document.getElementById('username').value = '';
+    document.getElementById('output').innerText = 'Enter quantities...';
+  }
 </script>
-  
+
 </body>
 </html>
