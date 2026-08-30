@@ -105,6 +105,22 @@
       cursor: pointer;
     }
     .btn-clear:hover { background-color: #ff6e6e; }
+    
+    /* Footer credit styles */
+    .credits {
+      margin-top: 15px;
+      text-align: center;
+      font-size: 12px;
+      color: #6272a4;
+    }
+    .credits a {
+    color: #ff79c6;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  .credits a:hover {
+    text-decoration: underline;
+  }
   </style>
 </head>
 <body>
@@ -140,6 +156,12 @@
     <button class="btn-copy" onclick="copyText()">Copy Discord Format</button>
     <button class="btn-clear" onclick="clearAll()">Clear</button>
   </div>
+
+ <div class="credits">
+  Created for <a href="https://discord.gg/owoasia" target="_blank" rel="noopener noreferrer">owoasia &#9825;</a>
+</div>
+
+
 </div>
 
 <script>
